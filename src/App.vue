@@ -1,12 +1,6 @@
 <template>
   <v-app>
-    <v-toolbar dense>
-      <v-toolbar-title>Demo app</v-toolbar-title>
-        <div class="flex-grow-1"></div>
-      <v-toolbar-items v-if="!isLogin">
-        <v-btn text to="/">Home</v-btn>
-      </v-toolbar-items>
-    </v-toolbar>
+    <Navbar :is-logged-in="isLoggedIn" @logout="onLogout" />
     <v-content>
       <router-view></router-view>
     </v-content>
@@ -14,11 +8,16 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import Navbar from './components/Navbar.vue';
+
 export default {
   name: 'App',
-  computed: {
-    isLogin() {
-      return this.$route.name === 'Login';
+  components: { Navbar },
+  computed: mapState(['isLoggedIn']),
+  methods: {
+    onLogout() {
+      this.$store.dispatch('logout');
     },
   },
 };
