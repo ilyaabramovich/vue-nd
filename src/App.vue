@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Navbar :is-logged-in="isLoggedIn" @logout="onLogout" />
+    <Navbar :auth="auth" @logout="logout" />
     <v-content>
       <router-view></router-view>
     </v-content>
@@ -14,9 +14,9 @@ import Navbar from './components/Navbar.vue';
 export default {
   name: 'App',
   components: { Navbar },
-  computed: mapState(['isLoggedIn']),
+  computed: mapState(['auth']),
   methods: {
-    onLogout() {
+    logout() {
       this.$store.dispatch('logout');
     },
   },

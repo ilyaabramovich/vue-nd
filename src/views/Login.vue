@@ -41,15 +41,25 @@
 <script>
 export default {
   name: 'Login',
+  data() {
+    return {
+      show: false,
+      valid: true,
+      login: '',
+      password: '',
+      loginRules: [v => !!v || 'Login is required'],
+      passwordRules: [v => !!v || 'Password is required'],
+    };
+  },
   methods: {
     onLogin() {
       if (this.$refs.form.validate()) {
         if (this.login === 'teacher' && this.password === 'tdemo') {
-          this.$store.dispatch('signin', { teacher: true });
+          this.$store.dispatch('login', { teacher: true });
           this.$refs.form.reset();
           this.$router.push('/teacher');
         } else if (this.login === 'student' && this.password === 'sdemo') {
-          this.$store.dispatch('signin', { teacher: false });
+          this.$store.dispatch('login', { teacher: false });
           this.$refs.form.reset();
           this.$router.push('/student');
         }
@@ -58,13 +68,5 @@ export default {
       this.show = true;
     },
   },
-  data: () => ({
-    show: false,
-    valid: true,
-    login: '',
-    password: '',
-    loginRules: [v => !!v || 'Login is required'],
-    passwordRules: [v => !!v || 'Password is required'],
-  }),
 };
 </script>
