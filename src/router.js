@@ -1,10 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Student from './views/Student.vue';
+import Personal from './views/Personal.vue';
 import Home from './views/Home.vue';
-import Teacher from './views/Teacher.vue';
 import Login from './views/Login.vue';
-
 
 Vue.use(Router);
 
@@ -15,7 +13,10 @@ const router = new Router({
     {
       name: 'Student',
       path: '/student',
-      component: Student,
+      component: Personal,
+      props: {
+        title: 'Студент. Личный кабинет',
+      },
       meta: {
         requiresAuth: true,
         teacherAuth: false,
@@ -25,7 +26,10 @@ const router = new Router({
     {
       name: 'Teacher',
       path: '/teacher',
-      component: Teacher,
+      component: Personal,
+      props: {
+        title: 'Преподаватель. Личный кабинет',
+      },
       meta: {
         requiresAuth: true,
         teacherAuth: true,
@@ -61,6 +65,5 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
-
 
 export default router;

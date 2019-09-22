@@ -55,11 +55,13 @@ export default {
     onLogin() {
       if (this.$refs.form.validate()) {
         if (this.login === 'teacher' && this.password === 'tdemo') {
-          this.$store.dispatch('login', { teacher: true });
+          localStorage.setItem('user', JSON.stringify({ teacher: true }));
+          this.$root.$data.auth = true;
           this.$refs.form.reset();
           this.$router.push('/teacher');
         } else if (this.login === 'student' && this.password === 'sdemo') {
-          this.$store.dispatch('login', { teacher: false });
+          localStorage.setItem('user', JSON.stringify({ teacher: false }));
+          this.$root.$data.auth = true;
           this.$refs.form.reset();
           this.$router.push('/student');
         }

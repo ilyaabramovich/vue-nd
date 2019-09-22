@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Navbar :auth="auth" @logout="logout" />
+    <Navbar :auth="this.$root.$data.auth" @logout="logout" />
     <v-content>
       <router-view></router-view>
     </v-content>
@@ -8,16 +8,16 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
 import Navbar from './components/Navbar.vue';
 
 export default {
   name: 'App',
   components: { Navbar },
-  computed: mapState(['auth']),
   methods: {
     logout() {
-      this.$store.dispatch('logout');
+      this.$root.$data.auth = false;
+      localStorage.removeItem('user');
+      this.$router.push('/login');
     },
   },
 };
